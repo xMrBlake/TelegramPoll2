@@ -1,0 +1,8 @@
+{
+  "name": "TelegramPoll",
+
+  "main": "it.xmrblake.telegrampoll.TelegramPollPlugin",
+
+  "dependencies": ["MiniORMBridge"]
+
+}
