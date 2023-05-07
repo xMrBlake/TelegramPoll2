@@ -64,8 +64,9 @@ public class LoginCommand extends BotCommand implements IBotCommand {
                 return;
             }
 
-            plugin.getUsersTable().updateUser(connection, user.get().withAccepted(1));
-            plugin.getPasswordTable().updatePassword(connection, new PasswordObject(Integer.parseInt(arguments[0]), 1));
+            //TODO devi controllare con isPresent prima di fare Optional#get altrimenti non ha senso usare gli Optional
+            plugin.getUsersTable().updateUser(connection, user.get().withAccepted(true));
+            plugin.getPasswordTable().updatePassword(connection, new PasswordObject(Integer.parseInt(arguments[0]), true));
             transaction.commit();
         } catch (Exception throwables) {
             throwables.printStackTrace();

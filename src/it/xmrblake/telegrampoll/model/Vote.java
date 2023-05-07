@@ -9,10 +9,9 @@ import lombok.With;
 @With
 @Model
 public class Vote {
-
     @Primary
     private final int id;
-    private final String chatid;
-    private final int applicationid;
+    private final String chatId;
+    private final int applicationId;
     private final String vote;
 }

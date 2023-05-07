@@ -57,7 +57,7 @@ public class GeneratePasswordsCommand extends BotCommand implements IBotCommand 
             throwables.printStackTrace();
             return;
         }
-        if(user.isEmpty() || !user.get().getSuperadmin()){
+        if(user.isEmpty() || !user.get().isSuperAdmin()){
             SendMessage sendMessage = new SendMessage(chatId, local(LANG_PREFIX + "no-permission"));
             try{
                 absSender.execute(sendMessage);
@@ -72,7 +72,7 @@ public class GeneratePasswordsCommand extends BotCommand implements IBotCommand 
             for (int i = 0; i < passwords ; i++) {
                 int psw =ThreadLocalRandom.current().nextInt(10000, 99999);
                 passwordList.add(psw);
-                plugin.getPasswordTable().insertPassword(connection, new PasswordObject(psw, 0));
+                plugin.getPasswordTable().insertPassword(connection, new PasswordObject(psw, false));
             }
             SendMessage sendMessage = new SendMessage(chatId, local(LANG_PREFIX + "generated",
                     String.valueOf(passwords), String.valueOf(passwordList)));

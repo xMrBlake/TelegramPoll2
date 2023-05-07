@@ -44,7 +44,7 @@ public class MessageService {
         }
         SendMessage sendMessage = createMessage(text, keyboard);
         for(User admin : admins){
-            sendMessage.setChatId(admin.getChatid());
+            sendMessage.setChatId(admin.getChatId());
             try{
                 sender.execute(sendMessage);
             } catch (TelegramApiException e) {

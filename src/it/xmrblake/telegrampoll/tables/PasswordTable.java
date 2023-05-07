@@ -29,32 +29,30 @@ public class PasswordTable {
     }
 
     public void updatePassword(MysqlConnection connection, PasswordObject password) throws Exception {
-        /*UPDATE_PASSWORD_STATE.initializeIfEmpty(() -> UpdateQueryParser.init(QueryBuilder.updateAndSet(this)
-                .where(Where.of(this, "psw"))))
-                .updateFromObjectFields(connection, password, List.of(password.getPsw()));*/
-        updatePasswordState.update(Password.class).value("used", password.getUsed()).where("psw", password.getPsw()).update(connection);
+        updatePasswordState.update(Password.class).set("used", password.getUsed())
+                .where("psw", password.getPsw())
+                .update(connection);
     }
 
-    public void insertPassword(MysqlConnection connection, PasswordObject password) throws Exception{
-        //INSERT_PASSWORD.initializeIfEmpty(()-> UpdateQueryParser.init(QueryBuilder.insert(this))).updateFromObjectFields(connection, password, List.of());
-        insertPassword.insert(Password.class).value("psw", password.getPsw()).value("used", password.getUsed()).update(connection);
+    public void insertPassword(MysqlConnection connection, PasswordObject password) throws Exception {
+        insertPassword.insert(Password.class).value("psw", password.getPsw())
+                .value("used", password.getUsed())
+                .update(connection);
     }
 
-    public boolean isAlreadyUsed(MysqlConnection connection, int password) throws Exception{
-        /*Optional<Password> passwordOptional = SELECT_PASSWORD.initializeIfEmpty(() -> ReadQueryParser.init(deserializersMapHolder, this, QueryBuilder.selectAll(this)
-                .where(Where.of(this, "psw")))).readFirst(connection, List.of(password), Password.class);*/
-        Password passwordOptional = selectPassword.selectAll(Password.class).where("psw", password).readFirstOrNull(connection, Password.class);
-        if(passwordOptional == null){
+    public boolean isAlreadyUsed(MysqlConnection connection, int password) throws Exception {
+        Password passwordOptional = selectPassword.selectAll(Password.class)
+                .where("psw", password)
+                .readFirstOrNull(connection, Password.class);
+        if (passwordOptional == null) {
             return false;
         }
         return passwordOptional.isUsed();
     }
 
-    public void dropPasswords(MysqlConnection connection) throws Exception{
-        //DROP_VALUE.initializeIfEmpty(() -> UpdateQueryParser.init(QueryBuilder.delete(this))).update(connection, List.of());
-        try(MysqlStatement statement = connection.update("DELETE * FROM tp_passwords")){
-
-        }
+    public void dropPasswords(MysqlConnection connection) throws Exception {
+        //TODO nuovo da controllare
+        dropValue.delete(Password.class).update(connection);
     }
-    
+
 }

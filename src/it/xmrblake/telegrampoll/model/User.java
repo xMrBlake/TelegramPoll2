@@ -11,24 +11,9 @@ import lombok.With;
 @AllArgsConstructor
 @Model
 public class User {
-
     @Primary
     private final int id;
-    private final long chatid;
-    private final int superadmin;
-    private final int accepted;
-
-    public boolean getSuperadmin(){
-        if(superadmin == 1){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isAccepted(){
-        if(accepted == 1){
-            return true;
-        }
-        return false;
-    }
+    private final long chatId;
+    private final boolean superAdmin;
+    private final boolean accepted;
 }

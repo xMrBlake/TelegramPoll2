@@ -48,7 +48,7 @@ public class StartVotingCommand extends BotCommand implements IBotCommand {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if(sender.isEmpty() || !sender.get().getSuperadmin()){
+        if(sender.isEmpty() || !sender.get().isSuperAdmin()){
             sendMessage = plugin.getMessageService().createMessage(local(LANG_PREFIX + "no-permission"), null, message.getChatId().toString());
             try {
                 absSender.execute(sendMessage);

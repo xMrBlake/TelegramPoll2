@@ -15,13 +15,6 @@ public class Password {
     @Primary
     private final int id;
     private final int psw;
-    private final int used;
-
-    public boolean isUsed(){
-        if(used == 1){
-            return true;
-        }
-        return false;
-    }
+    private final boolean used;
 
 }

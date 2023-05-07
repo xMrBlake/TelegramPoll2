@@ -52,7 +52,7 @@ public class ResetCommand extends BotCommand implements IBotCommand {
             throwables.printStackTrace();
             return;
         }
-        if(user.isEmpty() || !user.get().getSuperadmin()){
+        if(user.isEmpty() || !user.get().isSuperAdmin()){
             SendMessage sendMessage = new SendMessage(chatId, local(LANG_PREFIX + "no-permission"));
             try{
                 absSender.execute(sendMessage);
@@ -76,7 +76,7 @@ public class ResetCommand extends BotCommand implements IBotCommand {
             plugin.getVotesTable().dropVotes(connection);
             List<User> users = plugin.getUsersTable().selectAllUsers(connection);
             for(User u : users){
-                plugin.getUsersTable().updateUser(connection, u.withAccepted(0));
+                plugin.getUsersTable().updateUser(connection, u.withAccepted(false));
             }
             transaction.commit();
             SendMessage sendMessage = new SendMessage(chatId, local(LANG_PREFIX + "dropped"));

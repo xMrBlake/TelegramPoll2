@@ -57,12 +57,12 @@ public class AdminCommand extends BotCommand implements IBotCommand {
             }
             SendMessage result = null;
             if(arguments[1].equalsIgnoreCase("promote")){
-                plugin.getUsersTable().updateUser(connection, user.get().withSuperadmin(1));
+                plugin.getUsersTable().updateUser(connection, user.get().withSuperAdmin(true));
                 sendMessage = plugin.getMessageService().createMessage(local(LANG_PREFIX + "success-promoted"), null, chatId);
                 result = plugin.getMessageService().createMessage(local(LANG_PREFIX + "promoted"), null, arguments[0]);
             }
             else if(arguments[1].equalsIgnoreCase("demote")){
-                plugin.getUsersTable().updateUser(connection, user.get().withSuperadmin(0));
+                plugin.getUsersTable().updateUser(connection, user.get().withSuperAdmin(false));
                 sendMessage = plugin.getMessageService().createMessage(local(LANG_PREFIX + "success-demoted"), null, chatId);
                 result = plugin.getMessageService().createMessage(local(LANG_PREFIX + "demoted"), null, arguments[0]);
             }else{

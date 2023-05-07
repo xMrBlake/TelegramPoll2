@@ -6,7 +6,6 @@ import it.arenacraft.data.core.api.mysql.MysqlTransaction;
 import it.xmrblake.telegrampoll.TelegramPollPlugin;
 import it.xmrblake.telegrampoll.model.User;
 import it.xmrblake.telegrampoll.model.Vote;
-import it.xmrblake.telegrampoll.model.VoteObject;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.IBotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -55,7 +54,7 @@ public class CancelCommand extends BotCommand implements IBotCommand {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if(sender.isEmpty() || sender.get().getSuperadmin()){
+        if(sender.isEmpty() || sender.get().isSuperAdmin()){
             sendMessage = plugin.getMessageService().createMessage(local(LANG_PREFIX + "no-permission"), null, chatId);
             try {
                 absSender.execute(sendMessage);
@@ -68,10 +67,10 @@ public class CancelCommand extends BotCommand implements IBotCommand {
             MysqlTransaction transaction = new MysqlTransaction(connection)){
             List<Vote> votes = plugin.getVotesTable().selectAllVotes(connection);
             for(Vote vote : votes){
-                BCrypt.Result verify = BCrypt.verifyer().verify(arguments[0].toCharArray(), vote.getChatid());
+                BCrypt.Result verify = BCrypt.verifyer().verify(arguments[0].toCharArray(), vote.getChatId());
                 if(verify.verified){
-                    VoteObject cancelledVote = new VoteObject(vote.getChatid(), vote.getApplicationid(), "cancellata");
-                    plugin.getVotesTable().updateVote(connection, vote, cancelledVote);
+                    //TODO non so che voto ci vada qua ho messo null
+                    plugin.getVotesTable().updateVote(connection, vote, null );
                     System.out.println("cancellata");
                 }
             }

@@ -59,7 +59,7 @@ public class ResultCommand extends BotCommand implements IBotCommand {
             throwable.printStackTrace();
             return;
         }
-        if(user.isEmpty() || !user.get().getSuperadmin()){
+        if(user.isEmpty() || !user.get().isSuperAdmin()){
             SendMessage sendMessage = new SendMessage(String.valueOf(chat.getId()), local(LANG_PREFIX + "no-permission"));
             try{
                 absSender.execute(sendMessage);

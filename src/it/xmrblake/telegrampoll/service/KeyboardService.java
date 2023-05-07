@@ -39,18 +39,20 @@ public class KeyboardService {
 
     public List<List<InlineKeyboardButton>> modifyButton(String keyboardName, int list1, int list2, String placeholder, String replaced) {
         List<List<InlineKeyboardButton>> keyboard = keyboards.get(keyboardName).getKeyboard();
+        //TODO questa roba non fara' mai il replace
         keyboard.get(list1).get(list2).getText().replace(placeholder, replaced);
         return keyboard;
     }
 
     public List<List<InlineKeyboardButton>> modifyButton(List<List<InlineKeyboardButton>> keyboard, int list1, int list2, String placeholder, String replaced) {
+        //TODO questa roba non fara' mai il replace
         keyboard.get(list1).get(list2).getText().replace(placeholder, replaced);
         return keyboard;
     }
 
     public InlineKeyboardMarkup createKeyboardForRole(int index, int voteCode){
         Set<String> keySet = plugin.getRoles().keySet();
-        String[] indexedKey = keySet.toArray(new String[keySet.size()]);
+        String[] indexedKey = keySet.toArray(new String[0]);
         List<String> entries = plugin.getRoles().get(indexedKey[index]);
         List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
         List<InlineKeyboardButton> button = new ArrayList<>();

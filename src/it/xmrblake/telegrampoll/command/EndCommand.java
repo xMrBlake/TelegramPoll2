@@ -41,7 +41,7 @@ public class EndCommand extends BotCommand implements IBotCommand {
             throwables.printStackTrace();
             return;
         }
-        if(user.isEmpty() || user.get().getSuperadmin()){
+        if(user.isEmpty() || user.get().isSuperAdmin()){
             SendMessage sendMessage = new SendMessage(message.getChatId().toString(), local(LANG_PREFIX + "no-permission"));
             try {
                 absSender.execute(sendMessage);
@@ -51,24 +51,13 @@ public class EndCommand extends BotCommand implements IBotCommand {
             return;
         }
         plugin.setCurrentVoting(false);
+        //TODO sta roba qua non viene usata
         List<User> users;
         try(MysqlConnection connection = plugin.getMysqlConnection()){
             users = plugin.getUsersTable().selectAllUsers(connection);
         } catch (Exception throwables) {
             throwables.printStackTrace();
-            return;
         }
-        /*for(User u : users){
-            if(u.isSuperAdmin() || !u.isAccepted()){
-                continue;
-            }
-            SendMessage sendMessage = new SendMessage(String.valueOf(u.getChatId()), local(LANG_PREFIX + "end"));
-            try {
-                absSender.execute(sendMessage);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
 }
