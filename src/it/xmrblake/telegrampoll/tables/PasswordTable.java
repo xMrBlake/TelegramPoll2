@@ -29,14 +29,14 @@ public class PasswordTable {
     }
 
     public void updatePassword(MysqlConnection connection, PasswordObject password) throws Exception {
-        updatePasswordState.update(Password.class).set("used", password.getUsed())
+        updatePasswordState.update(Password.class).set("used", password.isUsed())
                 .where("psw", password.getPsw())
                 .update(connection);
     }
 
     public void insertPassword(MysqlConnection connection, PasswordObject password) throws Exception {
         insertPassword.insert(Password.class).value("psw", password.getPsw())
-                .value("used", password.getUsed())
+                .value("used", password.isUsed())
                 .update(connection);
     }
 

@@ -5,6 +5,7 @@ import it.arenacraft.data.core.api.mysql.MysqlConnection;
 import it.arenacraft.data.core.api.mysql.MysqlTransaction;
 import it.xmrblake.telegrampoll.command.*;
 import it.xmrblake.telegrampoll.model.Vote;
+import it.xmrblake.telegrampoll.model.VoteObject;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -187,7 +188,7 @@ public class TelegramPoll extends TelegramLongPollingCommandBot {
             for(Vote vote : votes){
                 BCrypt.Result verify = BCrypt.verifyer().verify(voteCode.toCharArray(), vote.getChatId());
                 if(verify.verified){
-                    plugin.getVotesTable().updateVote(connection, vote, new VoteObject(vote.getChatId(), vote.getApplicationId(), "Annullata"));
+                    plugin.getVotesTable().updateVote(connection, vote, "Annullata");
                 }
             }
             for (int i = index; i < plugin.getRoles().size() ; i++) {

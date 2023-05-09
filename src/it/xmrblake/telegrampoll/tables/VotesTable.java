@@ -6,6 +6,7 @@ import it.arenacraft.mini.orm.api.query.executors.ILoadQuery;
 import it.arenacraft.mini.orm.api.query.executors.IUpdateQuery;
 import it.arenacraft.mini.orm.api.service.IMiniORMQueryService;
 import it.xmrblake.telegrampoll.model.Vote;
+import it.xmrblake.telegrampoll.model.VoteObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.With;
@@ -33,10 +34,10 @@ public class VotesTable {
         this.selectAllVotes = queryService.load();
     }
 
-    public void insertVote(MysqlConnection connection, String chatId, int applicationId, String vote) throws Exception {
-        insertVote.insert(Vote.class).value("chatId", chatId)
-                .value("applicationId", applicationId)
-                .value("vote", vote)
+    public void insertVote(MysqlConnection connection, VoteObject vote) throws Exception {
+        insertVote.insert(Vote.class).value("chatId", vote.getChatId())
+                .value("applicationId", vote.getApplicationId())
+                .value("vote", vote.getVote())
                 .update(connection);
     }
 
