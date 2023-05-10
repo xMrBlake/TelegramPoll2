@@ -54,7 +54,7 @@ public class VotesTable {
     }
 
     public List<Vote> selectVotes(MysqlConnection connection, int index) throws Exception {
-        return selectVotations.selectAll(Vote.class).where("applicationid", index).readAll(connection, Vote.class);
+        return selectVotations.selectAll(Vote.class).where("applicationId", index).readAll(connection, Vote.class);
     }
 
     public List<Vote> selectAllVotes(MysqlConnection connection) throws Exception {
