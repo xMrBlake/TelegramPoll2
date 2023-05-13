@@ -44,7 +44,7 @@ public class VotesTable {
     public void updateVote(MysqlConnection connection, Vote oldVote, String vote) throws Exception {
         updateVote.update(Vote.class).set("vote", vote)
                 .where("chatId", oldVote.getChatId())
-                .where("applicationId", oldVote.getChatId())
+                .and("applicationId", oldVote.getChatId())
                 .update(connection);
     }
 
